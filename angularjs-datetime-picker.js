@@ -12,8 +12,8 @@
     var offset = isDST ? stdTimezoneOffset - 60 : stdTimezoneOffset;
     var diff = offset >=0 ? '-' : '+';
     return diff +
-      ("0"+ (offset / 60)).slice(-2) + ':' +
-      ("0"+ (offset % 60)).slice(-2);
+        ("0"+ (offset / 60)).slice(-2) + ':' +
+        ("0"+ (offset % 60)).slice(-2);
   };
 
   var DatetimePicker = function($compile, $document, $controller){
@@ -66,29 +66,8 @@
       datetimePickerEl = $compile(div)(options.scope)[0];
       datetimePickerEl.triggerEl = options.triggerEl;
 
-      $document[0].body.appendChild(datetimePickerEl);
-      /*angular.element(triggerEl).after(datetimePickerEl);*/
-
+      angular.element(triggerEl).after(datetimePickerEl);
       options.scope.$apply();
-
-      //show datetimePicker below triggerEl with respect to window size
-      // comment below code to add popup with input and un comment above code
-      var bcr = triggerEl.getBoundingClientRect();
-      var datePickerElBcr = datetimePickerEl.getBoundingClientRect();
-      datetimePickerEl.style.position='absolute';
-      datetimePickerEl.style.width = "210px";
-      if(bcr.width > datePickerElBcr.width){
-        datetimePickerEl.style.left= (bcr.left + bcr.width - datePickerElBcr.width + window.scrollX) + 'px';
-      } else {
-        datetimePickerEl.style.left= (bcr.left + window.scrollX) + 'px';
-      }
-
-      if (bcr.top < 300 || window.innerHeight - bcr.bottom > 300) {
-        datetimePickerEl.style.top = (bcr.bottom + window.scrollY) + 'px';
-      } else {
-        datetimePickerEl.style.top = (bcr.top - datePickerElBcr.height + window.scrollY) + 'px';
-      }
-
       $document[0].body.addEventListener('click', this.closeDatetimePicker);
     };
 
@@ -175,13 +154,13 @@
       }
       month = (month + 12) % 12;
       var firstDayOfMonth = new Date(year, month, 1),
-        lastDayOfMonth = new Date(year, month + 1, 0),
-        lastDayOfPreviousMonth = new Date(year, month, 0),
-        daysInMonth = lastDayOfMonth.getDate(),
-        daysInLastMonth = lastDayOfPreviousMonth.getDate(),
-        dayOfWeek = firstDayOfMonth.getDay(),
-        leadingDays = (dayOfWeek - firstDayOfWeek + 7) % 7 || 7, // Ensure there are always leading days to give context
-        trailingDays = days.slice(0, 6 * 7 - (leadingDays + daysInMonth));
+          lastDayOfMonth = new Date(year, month + 1, 0),
+          lastDayOfPreviousMonth = new Date(year, month, 0),
+          daysInMonth = lastDayOfMonth.getDate(),
+          daysInLastMonth = lastDayOfPreviousMonth.getDate(),
+          dayOfWeek = firstDayOfMonth.getDay(),
+          leadingDays = (dayOfWeek - firstDayOfWeek + 7) % 7 || 7, // Ensure there are always leading days to give context
+          trailingDays = days.slice(0, 6 * 7 - (leadingDays + daysInMonth));
       if (trailingDays.length > 7) {
         trailingDays = trailingDays.slice(0, trailingDays.length-7);
       }
@@ -223,12 +202,12 @@
             dateStr += getTimezoneOffset(dateStr);
             var d = new Date(dateStr);
             scope.selectedDate = new Date(
-              d.getFullYear(),
-              d.getMonth(),
-              d.getDate(),
-              d.getHours(),
-              d.getMinutes(),
-              d.getSeconds()
+                d.getFullYear(),
+                d.getMonth(),
+                d.getDate(),
+                d.getHours(),
+                d.getMinutes(),
+                d.getSeconds()
             );
           }
         }
@@ -301,7 +280,7 @@
       scope.updateNgModel = function(day) {
         day = day ? day : scope.selectedDate.getDate();
         scope.selectedDate = new Date(
-          scope.mv.year, scope.mv.month, day, scope.inputHour, scope.inputMinute, 0
+            scope.mv.year, scope.mv.month, day, scope.inputHour, scope.inputMinute, 0
         );
         scope.selectedDay = scope.selectedDate.getDate();
         if (attrs.ngModel) {
